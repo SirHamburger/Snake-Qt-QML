@@ -102,6 +102,11 @@ void Message::sendFood(int x, int y)
     emit food(x*scale,y*scale);
 }
 
+void Message::sendDrawback(int x, int y)
+{
+    emit drawback(x*scale,y*scale);
+}
+
 void Message::timer()
 {
     if(!block){
@@ -126,6 +131,10 @@ void Message::timer()
         {
             if(!feld->getFeld()[feld->getSnake().getSnake().front().getXKoordinate()][feld->getSnake().getSnake().front().getYKoordinate()].getHasPoop())
                 removeKoordinates(feld->getSnake().getSnake().front().getXKoordinate(),feld->getSnake().getSnake().front().getYKoordinate());
+            else
+            {
+                sendDrawback(feld->getSnake().getSnake().front().getXKoordinate(),feld->getSnake().getSnake().front().getYKoordinate());
+            }
 
         }
         else

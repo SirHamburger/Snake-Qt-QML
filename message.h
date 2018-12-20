@@ -22,6 +22,7 @@ public:
     void startGame();
     void removeKoordinates(int x, int y);
     void sendFood(int x, int y);
+    void sendDrawback(int x, int y);
 
 
 signals:
@@ -33,6 +34,7 @@ signals:
  void reset();
  void newSpeed(int speed);
  void food(int x, int y);
+ void drawback(int x, int y);
 
 public slots:
     void timer();

@@ -61,6 +61,17 @@ ApplicationWindow {
 
             }
         }
+        MyButton
+        {
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            btnText: "Drawback Color";
+            onClick: {
+                colorCaller = 3;
+                colorDialog.visible=true;
+
+            }
+        }
 
 
         ColorDialog
@@ -81,6 +92,11 @@ ApplicationWindow {
                     //messageDialog.visible=true;
                     //   updateAmount()
                 }
+                if(colorCaller==3)
+                {
+                    colorSettings.drawbackColor= colorDialog.color;
+                }
+
                 colorCaller=100;
             }
             onRejected:

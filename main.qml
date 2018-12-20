@@ -19,7 +19,7 @@ ApplicationWindow  {
     property int colorCaller: -1;
     property color defaultFoodColor: "red"
     property color backgroundColor: "DarkBlue";
-
+    property color defaultDrawbackColor: "brown";
 
     property color nocolor:;
     property int difficulty: 0
@@ -31,7 +31,7 @@ ApplicationWindow  {
     visible: true
     //width: 8*mColumns+150
     //height: 8*mRows
-    minimumHeight: 400;
+    minimumHeight: 450;
     minimumWidth: 300;
     property alias window: window
     title: qsTr("Snake")
@@ -93,6 +93,7 @@ ApplicationWindow  {
 
         property color snakeColor;
         property color backgroundColor;
+        property color drawbackColor;
 
          property color foodColor;
         property bool colorSet;
@@ -123,7 +124,11 @@ ApplicationWindow  {
         if(gameSettings.difficulty ==3)
             fourth.checked=true;
         if(colorSettings.colorSet==false)
+        {
             colorSettings.backgroundColor="DarkBlue"
+            colorSettings.drawbackColor = defaultDrawbackColor;
+        }
+
         backgroundColor = colorSettings.backgroundColor
 
         //calcRectangeSize();
@@ -170,12 +175,16 @@ ApplicationWindow  {
         }
         onFood:
         {
-            cells.childAt(x,y).color= colorSettings.foodColor
+            cells.childAt(x,y).color= colorSettings.foodColor;
         }
 
         onRemove:
         {
-            cells.childAt(x,y).color=backgroundColor
+            cells.childAt(x,y).color=backgroundColor;
+        }
+        onDrawback:
+        {
+            cells.childAt(x,y).color=colorSettings.drawbackColor;
         }
 
         onPunkteChanged: {
@@ -328,7 +337,9 @@ ApplicationWindow  {
 
     MyButton
              {
+
                  anchors.bottom: parent.bottom
+                 anchors.topMargin: width
                  anchors.bottomMargin: 5;
                   x: parent.width-150+15
                  btnText: "Settings";
@@ -340,14 +351,18 @@ ApplicationWindow  {
 
 onWidthChanged:
     {
-
+          msg.start(recangleSize);
         calcRectangeSize();
+
    }
     onHeightChanged:
     {
-
+         msg.start(recangleSize);
         calcRectangeSize();
     }
+
+
+
     function calcRectangeSize()
     {
         if(cells.width / cells.columns< cells.height / cells.rows)
